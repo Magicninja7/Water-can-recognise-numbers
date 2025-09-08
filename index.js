@@ -48,7 +48,7 @@ toolbar.addEventListener('click', async e => {
     if(e.target.id === 'save') {
         try {
             const imageData = canvas.toDataURL('image/png');
-            const response = await fetch('http://localhost:5000/predict', {
+            const response = await fetch('https://magic01.pythonanywhere.com/predict', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

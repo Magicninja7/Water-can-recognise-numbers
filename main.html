@@ -1,0 +1,42 @@
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE-edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="styles.css">
+        <title>Draw a number!!!</title>
+    </head>
+    <body>
+        <section class="container">
+            <div class="result-display" id="result-display"></div>
+            <div class="toolbar" id="toolbar">
+                <button id="clear">Clear</button>
+                <button id="save">Analyse</button>
+            </div>
+            <div class="squares-container">
+                <div class="drawing-board">
+                    <canvas id="drawing-board"></canvas>
+                </div>
+                <div class="right-square">
+                    <h2>How the Algorithm Works</h2>
+                    <p>
+                        This algorithm analyzes the drawing on the canvas using water to detect and recognize numbers. By spilling it over the number, you see how much is left inside, giving you a parameter. Slice each half into two, and you've got 8 params. The 9th paramater is how much water is displaced, if the number were to be dropped into a pool of water.
+                    </p>
+                    <img src="https://hc-cdn.hel1.your-objectstorage.com/s/v3/5d578f3828063f78ba58780bb90d88cc105d37fe_image.png" alt="first 8 params" style="max-width: 100%; height: auto;">
+                    <img src="https://hc-cdn.hel1.your-objectstorage.com/s/v3/fba294818795552c327f3750df743ee849331e4c_image.png" alt="9th param" style="max-width: 100%; height: auto;">
+                    <p>
+                        Although you cannot visualise 9 dimensions, even using a 2d graph, you can still see where the vectors of each number are grouped.
+                    </p>
+                    <img src="https://hc-cdn.hel1.your-objectstorage.com/s/v3/0d0a65eef7725021bc398c333c495bebf38386d9_image.png" alt="2dgraph" style="max-width: 100%; height: auto;">
+                    <p>
+                        Next you find n'th nearest neighbours of your numbers vector, and see which number is most common; this is your guess.
+                    </p>
+                    <img src="https://hc-cdn.hel1.your-objectstorage.com/s/v3/f0e4f9ea5d39f0e1b911d044031f069fa248621b_image.png" alt="knn" style="max-width: 100%; height: auto;">
+                    <p>Check out <a href="https://www.youtube.com/@PickentCode" target="_blank">PickentCode youtube channel</a>, this whole idea was his, and the photos above are from his <a href="https://www.youtube.com/watch?v=CC4G_xKK2g8" target="_blank">video</a>. Its really great; go watch it!!!</p>
+                </div>
+            </div>
+            
+        </section>
+        <script src="./index.js"></script>
+    </body>
+</html>

@@ -1,3 +1,7 @@
+# What is this
+This is a website that can recognize digits you draw, but not thanks to neural networks, but water!! (its actually a 3-directional bfs, but water sounds cooler). You draw a digit on the canvas (the white square) and click analyze! the popup will show you your number. Another important thing is the graph plotter for each value of k (see "how the algorithm works" if you dont know what that is), in my KNN (k-nearest neighbors) algorithm. 
+
+
 ## How the Algorithm Works
 
 This algorithm analyzes the drawing on the canvas using water to detect and recognize numbers. By spilling it over the number, you see how much is left inside, giving you a parameter. Slice each half into two, and you've got 8 parameters. The 9th parameter is how much water is displaced if the number were to be dropped into a pool of water.

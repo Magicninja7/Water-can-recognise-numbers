@@ -17,7 +17,7 @@ Next, you find the n'th nearest neighbours of your number's vector, and see whic
 
 ![knn](https://hc-cdn.hel1.your-objectstorage.com/s/v3/f0e4f9ea5d39f0e1b911d044031f069fa248621b_image.png)
 
-# Check out [PickentCode YouTube channel](https://www.youtube.com/@PickentCode), this whole idea was his, and the photos above are from his [video](https://www.youtube.com/watch?v=CC4G_xKK2g8). It's really great; go watch it!!! its generally a great channel, 10/10 in my books.
+# Check out [PickentCode YouTube channel](https://www.youtube.com/@PickentCode), this whole idea was his, and the photos above are from his [video](https://www.youtube.com/watch?v=CC4G_xKK2g8). It's really great; go watch it!!! its generally a great channel, 10/10 would watch again.
 
 
 ## different files? what are they for?

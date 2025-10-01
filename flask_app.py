@@ -56,6 +56,10 @@ def get_data():
     global queue
     global l
     global r
+    grid = [[[0 for j in range(18)] for i in range(20)], [[1 for j in range(20)] for i in range(5)], [[1 for j in range(20)] for i in range(20)], [[0 for j in range(20)] for i in range(20)]]
+    queue = [[(0,0), (0,1), (1,0), (15, 4)], [(0,0), (0,1), (1,0), (10, 4)], [(0,0), (0,1), (1,0), (5, 14)], [(0,0), (0,1), (1,0), (5, 4)]]
+    l = [3, 4, 3, 43]
+    r = [4, 4, 54, 34]
     return jsonify({
         'grid': grid,
         'queue': queue,

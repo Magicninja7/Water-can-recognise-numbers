@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BFS Visualization</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>BFS Traversal Visualization</h1>
+        <div class="controls">
+            <button id="startBtn">Start BFS</button>
+            <button id="resetBtn">Reset Grid</button>
+            <label>
+                Speed: <input type="range" id="speedSlider" min="10" max="500" value="100">
+            </label>
+        </div>
+        <!-- Absolute-positioned stage holding four identical grids at screen quarters -->
+        <div class="grid-stage">
+            <div class="grid-wrapper pos-tl">
+                <div class="grid"></div>
+                <div class="grid-label"></div>
+            </div>
+            <div class="grid-wrapper pos-tr">
+                <div class="grid"></div>
+                <div class="grid-label"></div>
+            </div>
+            <div class="grid-wrapper pos-bl">
+                <div class="grid"></div>
+                <div class="grid-label"></div>
+            </div>
+            <div class="grid-wrapper pos-br">
+                <div class="grid"></div>
+                <div class="grid-label"></div>
+            </div>
+            
+            <!-- Vector display on the right side -->
+            <div class="vector-display">
+                <h3>Vector</h3>
+                <div id="vectorContent"></div>
+            </div>
+        </div>
+        
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>

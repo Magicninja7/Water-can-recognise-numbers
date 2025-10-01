@@ -1,0 +1,186 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background: #1a1a1a;
+    color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 20px;
+}
+
+.container {
+    text-align: center;
+}
+
+h1 {
+    margin-bottom: 20px;
+    font-size: 28px;
+}
+
+.controls {
+    margin-bottom: 20px;
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+button {
+    background: #4CAF50;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background 0.3s;
+}
+
+button:hover {
+    background: #45a049;
+}
+
+button:disabled {
+    background: #666;
+    cursor: not-allowed;
+}
+
+/* Stage to place 4 grids at screen quarters */
+.grid-stage {
+    position: relative;
+    width: 100vw;
+    height: calc(100vh - 160px); /* leave room for header/controls */
+}
+
+/* Wrapper for each grid and its label */
+.grid-wrapper {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+/* Generic grid box, identical styling to the previous #grid */
+.grid {
+    position: relative;
+    display: inline-grid;
+    grid-template-columns: repeat(20, 25px);
+    grid-template-rows: repeat(20, 25px);
+    gap: 1px;
+    background: #333;
+    padding: 1px;
+    border: 2px solid #555;
+}
+
+/* Label styling */
+.grid-label {
+    color: #fff;
+    font-size: 14px;
+    font-weight: bold;
+    text-align: center;
+    background: rgba(0, 0, 0, 0.7);
+    padding: 5px 10px;
+    border-radius: 5px;
+    min-width: 100px;
+}
+
+/* Vector display on the right side */
+.vector-display {
+    position: absolute;
+    right: 2vw;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(0, 0, 0, 0.8);
+    border: 2px solid #4CAF50;
+    border-radius: 10px;
+    padding: 20px;
+    min-width: 250px;
+    max-width: 300px;
+    color: #fff;
+}
+
+.vector-display h3 {
+    margin: 0 0 15px 0;
+    font-size: 20px;
+    text-align: center;
+    color: #4CAF50;
+    border-bottom: 2px solid #4CAF50;
+    padding-bottom: 10px;
+}
+
+#vectorContent {
+    font-family: 'Courier New', monospace;
+    font-size: 14px;
+    line-height: 1.8;
+    word-break: break-word;
+}
+
+#vectorContent div {
+    margin: 5px 0;
+    padding: 5px;
+    background: rgba(76, 175, 80, 0.1);
+    border-radius: 3px;
+}
+
+/* Positions: 1/4 and 3/4 horizontally; 1/4 and 2/4 vertically */
+.pos-tl { /* top-left at 1/4 width, 1/4 height */
+    left: 37vw;
+    top: 25vh;
+    transform: translate(-50%, -50%) scale(0.6);
+}
+.pos-tr { /* top-right at 3/4 width, 1/4 height */
+    left: 64vw;
+    top: 25vh;
+    transform: translate(-50%, -50%) scale(0.6);
+}
+.pos-bl { /* bottom-left at 1/4 width, 2/4 (1/2) height */
+    left: 37vw;
+    top: 75vh;
+    transform: translate(-50%, -50%) scale(0.6);
+}
+.pos-br { /* bottom-right at 3/4 width, 2/4 (1/2) height */
+    left: 64vw;
+    top: 75vh;
+    transform: translate(-50%, -50%) scale(0.6);
+}
+
+.cell {
+    width: 25px;
+    height: 25px;
+    transition: all 0.3s;
+}
+
+.cell.zero {
+    background: #ff0000;
+}
+
+.cell.one {
+    background: #000000;
+}
+
+.cell.visiting {
+    background: #00ff00 !important;
+    transform: scale(1.1);
+    box-shadow: 0 0 10px #00ff00;
+}
+
+.cell.visited {
+    background: #0080ff !important;
+}
+
+label {
+    font-size: 14px;
+}
+
+input[type="range"] {
+    width: 150px;
+}

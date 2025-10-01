@@ -60,22 +60,24 @@ def process_drawing(drawn_array):
 
     vector = [0 for _ in range(9)]
     i = 0
+    each_side = []
     for _ in range(4):
         temp = copy.deepcopy(usage_arr)
-        l, r = add_data.bfs(temp)
+        l, r, order = add_data.bfs(temp)
+        each_side.append((l, r, order, temp))
         vector[i], vector[i+1] = int(l), int(r)
         i = i+2       
         usage_arr = add_data.rotate(usage_arr)
     
     vector[8] = int(add_data.surround_bfs(usage_arr2))
 
-    return prediction_func(vector, k)
+    return prediction_func(vector, k, each_side)
 
 
-def prediction_func(vector, k):
+def prediction_func(vector, k, each_side):
     trainingData, trainingLabels = parse_dataset()
     prediction = knn(trainingData, trainingLabels, vector, k)
-    return prediction
+    return prediction, each_side
 
 
 '''

@@ -5,12 +5,70 @@ import io
 from PIL import Image
 import numpy as np
 import knn 
+import cv2
+from io import BytesIO
+
+global grid
+global queue
+global l
+global r
 
 app = Flask(__name__)
 CORS(app)
 
+'''
+turns out polygon unnecessary, but maybe someday
+@app.route('/extract_polygon', methods=['POST'])
+def extract_polygon():
+    image_data = request.json['image'].split(',')[1]
+    image_bytes = base64.b64decode(image_data)
+    image = Image.open(BytesIO(image_bytes))
+    
+    # Convert RGBA to RGB (canvas might have alpha channel)
+    if image.mode == 'RGBA':
+        rgb_image = Image.new('RGB', image.size, (255, 255, 255))
+        rgb_image.paste(image, mask=image.split()[3])  # Use alpha as mask
+        image = rgb_image
+    
+    # Convert to OpenCV format
+    img = cv2.cvtColor(np.array(image), cv2.COLOR_RGB2GRAY)
+    
+    # INVERT threshold - makes black strokes white
+    _, thresh = cv2.threshold(img, 127, 255, cv2.THRESH_BINARY_INV)
+    
+    # Find contours
+    contours, _ = cv2.findContours(thresh, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+    
+    if contours:
+        largest_contour = max(contours, key=cv2.contourArea)
+        epsilon = 0.01 * cv2.arcLength(largest_contour, True)
+        polygon = cv2.approxPolyDP(largest_contour, epsilon, True)
+        polygon_points = polygon.reshape(-1, 2).tolist()
+        
+        return jsonify({'polygon': polygon_points})
+    
+    return jsonify({'error': 'No contours found'}), 400
+'''
+
+@app.route('/api/data')
+def get_data():
+    global grid
+    global queue
+    global l
+    global r
+    return jsonify({
+        'grid': grid,
+        'queue': queue,
+        'l': l,
+        'r': r
+    })
+    
+
+
 
 def convert_png_to_array(image_data_url: str):
+    global grid
+    global queue
     try:
         # decode base64 image
         if image_data_url.startswith('data:image'):
@@ -38,7 +96,7 @@ def convert_png_to_array(image_data_url: str):
         img_array = np.array(img_resized)
         binary_array = (img_array < 128).astype(int)
 
-        # 3. Find the bounding box of the content
+        # Find the bounding box of the content
         rows_with_content = np.any(binary_array == 1, axis=1)
         cols_with_content = np.any(binary_array == 1, axis=0)
 
@@ -88,6 +146,8 @@ def convert_png_to_array(image_data_url: str):
         return None
 
 
+
+
 @app.route('/')
 def home():
     return "Flask server is running! Use the /predict endpoint for digit prediction."
@@ -97,10 +157,29 @@ def predict_digit():
     try:
         image_data_url = request.json['image']
         x = convert_png_to_array(image_data_url)        
-        prediction = knn.process_drawing(x)
+        prediction, each_side = knn.process_drawing(x)
         print(prediction)
-        return jsonify({'prediction': int(prediction)})
+        global grid
+        global queue
+        global l
+        global r
         
+        # Initialize lists to store data from all 4 sides
+        grid = []
+        queue = []
+        l = []
+        r = []
+        
+        # Unpack data from each side
+        for side in each_side:
+            l_val, r_val, queue_val, grid_val = side
+            l.append(l_val)
+            r.append(r_val)
+            queue.append(queue_val)
+            grid.append(grid_val)
+            
+        return jsonify({'prediction': int(prediction)})
+
     except Exception as e:
         print(f"Error during prediction: {e}")
         return jsonify({'error': str(e)}), 500

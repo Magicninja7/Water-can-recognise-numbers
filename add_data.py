@@ -49,10 +49,12 @@ def crop_to_content_edges(matrix):
 def bfs(test_arr):
     dir = [(1, 0), (0, -1), (0, 1)]
     visited = set()
+    order = []
     queue = []
     queue.append((0, 0))
     while queue:
         curr = queue.pop(0)
+        order.append(curr)
         test_arr[curr[0]][curr[1]] = 2
         for a, b in dir:
             if 0 <= curr[0] + a < int(len(test_arr)) and 0 <= curr[1] + b < int(len(test_arr[0])) and test_arr[curr[0]+a][curr[1]+b] == 0 and (curr[0]+a, curr[1]+b) not in visited:
@@ -74,7 +76,7 @@ def bfs(test_arr):
      #count 0s in each half
     l_num_zeros = (np.count_nonzero(crop_l_half == 0) / (len(crop_l_half) * len(crop_l_half[0]))) * 100
     r_num_zeros = (np.count_nonzero(crop_r_half == 0) / (len(crop_r_half) * len(crop_r_half[0]))) * 100
-    return round(l_num_zeros), round(r_num_zeros)
+    return round(l_num_zeros), round(r_num_zeros), order
 
 def surround_bfs(test_arr):
     dir = [(1, 0), (-1, 0), (0, -1), (0, 1)]

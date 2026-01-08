@@ -1,50 +1,19 @@
 const canvas = document.getElementById('drawing-board');
-const toolbar = document.getElementById('toolbar');
+const toolbar = document. getElementById('toolbar');
 const ctx = canvas.getContext('2d');
 
 const canvasOffsetX = canvas.offsetLeft;
 const canvasOffsetY = canvas.offsetTop;
 
 // Set fixed canvas size to 400x400
-canvas.width = 400;
-canvas.height = 400;
+canvas. width = 400;
+canvas. height = 400;
 
 let isPainting = false;
 let lineWidth = 25;
-let hasDrawing = false;  // Track if something is drawn
 
 let startX;
 let startY;
-
-// Get the "See in sim!!" button
-const exportButton = document.getElementById('export-polygon');
-exportButton.disabled = true;  // Initially disabled
-exportButton.style.opacity = '0.5';  // Visual feedback
-exportButton.style.cursor = 'not-allowed';
-
-// Function to check if canvas has any drawing
-function checkIfDrawn() {
-    const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
-    const data = imageData.data;
-    
-    // Check if any pixel has been modified (not completely transparent)
-    for (let i = 3; i < data.length; i += 4) {
-        if (data[i] !== 0) {  // Check alpha channel
-            hasDrawing = true;
-            exportButton.disabled = false;
-            exportButton.style.opacity = '1';
-            exportButton.style.cursor = 'pointer';
-            return;
-        }
-    }
-    
-    hasDrawing = false;
-    exportButton.disabled = true;
-    exportButton.style.opacity = '0.5';
-    exportButton.style.cursor = 'not-allowed';
-}
-
-
 
 canvas.addEventListener('mousedown', (e) => {
     isPainting = true;
@@ -68,47 +37,11 @@ canvas.addEventListener('mouseup', (e) => {
     isPainting = false;
     ctx.stroke();
     ctx.beginPath();
-    checkIfDrawn();  // Check if something is drawn after mouse up
 })
 
 toolbar.addEventListener('click', async e => {
     if(e.target.id === 'clear') {
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-        checkIfDrawn();  // Update button state after clearing
-    }
-    if(e.target.id === 'export-polygon') {
-        if (!hasDrawing) {
-            alert('Please draw something first!');
-            return;
-        }
-        
-        try {
-            const imageData = canvas.toDataURL('image/png');
-            
-            // Use production API or local Flask server
-            const apiUrl = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
-                ? 'http://127.0.0.1:5000/predict'
-                : 'https://magic01.pythonanywhere.com/predict';
-            
-            // Send to Flask backend to process and store data
-            const response = await fetch(apiUrl, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ image: imageData })
-            });
-            
-            if (response.ok) {
-                // Redirect to 2nd.html after successful processing
-                window.location.href = '2nd.html';
-            } else {
-                alert('Error processing image. Please try again.');
-            }
-        } catch (error) {
-            console.error('Error:', error);
-            alert('Error connecting to server. Make sure Flask is running.');
-        }
+        ctx.clearRect(0, 0, canvas. width, canvas.height);
     }
     if(e.target.id === 'save') {
         try {
@@ -120,7 +53,7 @@ toolbar.addEventListener('click', async e => {
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({ image: imageData })
+                body:  JSON.stringify({ image: imageData })
             });
             
             const result = await response.json();

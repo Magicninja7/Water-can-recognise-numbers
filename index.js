@@ -17,7 +17,6 @@ let startX;
 let startY;
 
 // Get the "See in sim!!" button
-const exportButton = document.getElementById('export-polygon');
 exportButton.disabled = true;  // Initially disabled
 exportButton.style.opacity = '0.5';  // Visual feedback
 exportButton.style.cursor = 'not-allowed';

@@ -16,11 +16,8 @@ let hasDrawing = false;  // Track if something is drawn
 let startX;
 let startY;
 
-// Get the "See in sim!!" button
-exportButton.disabled = true;  // Initially disabled
-exportButton.style.opacity = '0.5';  // Visual feedback
-exportButton.style.cursor = 'not-allowed';
 
+    
 // Function to check if canvas has any drawing
 function checkIfDrawn() {
     const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
@@ -30,17 +27,12 @@ function checkIfDrawn() {
     for (let i = 3; i < data.length; i += 4) {
         if (data[i] !== 0) {  // Check alpha channel
             hasDrawing = true;
-            exportButton.disabled = false;
-            exportButton.style.opacity = '1';
-            exportButton.style.cursor = 'pointer';
             return;
         }
     }
     
     hasDrawing = false;
-    exportButton.disabled = true;
-    exportButton.style.opacity = '0.5';
-    exportButton.style.cursor = 'not-allowed';
+
 }
 
 
@@ -75,11 +67,6 @@ toolbar.addEventListener('click', async e => {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
         checkIfDrawn();  // Update button state after clearing
     }
-    if(e.target.id === 'export-polygon') {
-        if (!hasDrawing) {
-            alert('Please draw something first!');
-            return;
-        }
         
         try {
             const imageData = canvas.toDataURL('image/png');
